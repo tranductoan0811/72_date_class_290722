@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<h3 style="margin-left: 150px;">Xây dựng lớp Date</h3>
+</head>
+<body>
+  <fieldset style="width: 450px;">
+  <p>Nhập ngày<input type="number" id="input_day" placeholder="Nhập ngày" style="text-align: center;margin-left: 20px;"></p>
+  <p>Nhập tháng<input type="number" id="input_month" placeholder="Nhập tháng" style="text-align: center;margin-left: 16px;"></p>
+  <p>Nhập năm<input type="number" id="input_year" placeholder="Nhập năm" style="text-align: center;margin-left: 24px;"></p>
+  <button onclick="display();">In ngày tháng năm</button> <button onclick="clearAll();">Đặt lại ngày tháng năm</button>
+  <p>ngày tháng năm nhập vào là: </p><span id="result"></span>
+  <p>Ngày hiện tại: <span id="curent_day"></span></p>
+  <p>Thời gian bây giờ là: <span id="current_time"></span></p>
+  
+  
+</fieldset>
+
+  <script>
+    class myDate {
+      constructor(day, month, year) {
+        this.day = day;
+        this.month = month;
+        this.year = year;
+      }
+
+      getDay() {
+        return ('0' + this.day).slice(-2);
+      }
+      getMonth() {
+        return ('0' + (this.month)).slice(-2);
+      }
+      getYear() {
+        return this.year;
+      }
+      fullDateMonthYear() {
+        return "ngày " + ('0' + this.day).slice(-2) + " tháng " + ('0' + (this.month)).slice(-2) + " năm " + this.year +
+                " ( " + ('0' + this.day).slice(-2) + "/" + ('0' + (this.month)).slice(-2) + "/" + this.year + " ) ";
+      }
+
+    }
+
+ 
+    function display() {
+      
+    var day_num = parseInt(document.getElementById("input_day").value);
+    var month_num = parseInt(document.getElementById("input_month").value);
+    var year_num = parseInt(document.getElementById("input_year").value);
+    
+   
+    var date = new myDate(day_num, month_num, year_num)
+    var day = date.getDay();
+    var month = date.getMonth();
+    var year = date.getYear();  
+    var day_month_year = date.fullDateMonthYear();
+
+    var today = new Date();
+    var current_date = ('0'+today.getDate()).slice(-2) + "/" + ('0'+(today.getMonth()+1)).slice(-2) + "/" + today.getFullYear();
+    var currentTime =  today.getHours() + " h : " + today.getMinutes() + " phút : " + today.getSeconds() + " giây";
+
+    if (day_num < 1 || day_num > 31 || month_num < 1 || month_num > 12 || year_num < 1900 || year_num > 9999) {
+      alert("Đầu vào không hợp lệ\nNgày từ 1 - 31\nTháng từ 1-12\nNăm từ 1900 đến 9999");
+    } else {
+      document.getElementById("result").innerHTML = day_month_year;
+      document.getElementById("curent_day").innerHTML = current_date;
+      document.getElementById("current_time").innerHTML = currentTime;
+    }
+      
+    }
+    
+    function clearAll() {
+      document.getElementById("input_day").value = '';
+      document.getElementById("input_month").value = '';
+      document.getElementById("input_year").value = '';
+      document.getElementById("result").innerHTML = '';
+    }
+
+
+  </script>
+
+</body>
+
+</html>
